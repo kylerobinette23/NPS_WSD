@@ -91,6 +91,8 @@ source_table_clean <- source_table %>%
                    source_type == "spring" ~ "Spring",
                 TRUE ~ source_type)) 
 
+mapview(source_table_clean,
+        zcol = "source_type")
 
 ```
 
@@ -417,7 +419,7 @@ Read in USGWD for a state and plot
 
 USGWD <- list.files(path = "data/all/Water_Supply/USGWD-Tabular/", pattern = "*.csv", full.names = TRUE) %>%
   as_tibble() %>% # Convert to a tibble
-  dplyr::filter(str_detect(value, paste(c("North_Carolina"), collapse = "|"))) %>%
+  dplyr::filter(str_detect(value, paste(c("Maine"), collapse = "|"))) %>%
   pull(value) %>%
   as.list() %>%
   map_dfr(., \(x) fread(x) %>% clean_names() %>% dplyr::mutate(well_id_state = as.character(well_id_state))) %>%
@@ -429,8 +431,7 @@ USGWD <- list.files(path = "data/all/Water_Supply/USGWD-Tabular/", pattern = "*.
 #mapview(buildings %>% st_centroid(), col.regions = "green") +
 mapview(USGWD %>%
           st_filter(source_table %>% st_buffer(10000))) +
-  mapview(source_table, col.regions = "red") +
-  mapview(dg, col.regions = "hotpink")
+  mapview(source_table, col.regions = "red") 
   
 
 
