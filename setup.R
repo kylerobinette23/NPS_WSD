@@ -19,7 +19,7 @@ packages <- c(
   #"cowplot",
   "data.table",
   "dataRetrieval",
-  "devtools",
+  #"devtools",
   "dtplyr",
   "elevatr",
   "flextable",
